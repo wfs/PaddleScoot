@@ -12,10 +12,11 @@ class UltrasonicHCSR04:
     Sensor Class maps DragonBoard 410c GPIO pins for Debian to the HC-SR04 ultra-sonic sensor.
 
     Approximate Speed of Sound through Air at 20 degrees centigrade
-    343 metres per second
+    343 metres per second.
 
     For "Shallow Water Sensor"
     Approximate Speed of Sound through Water at 15 degrees centigrade
+    1464 metres per second.
     """
 
     def __init__(self):
