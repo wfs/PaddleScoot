@@ -14,18 +14,25 @@ prop = DC()  # propeller
 
 try:
     isSwsActive = sws.activate()
-    isPropStarted = prop.start_motor()
+#    isPropStarted = prop.start_motor()
 
-    while isSwsActive and isPropStarted:
-        print sws.get_depth()
+    #while isSwsActive and isPropStarted:
+        #print sws.get_depth()
+    counter = 0
+    while counter <= 10:
+        sws.activate()
+        print "Depth :", sws.get_depth()
 
         if sws.get_depth() < 0.5:
             prop.stop_motor()
             print "Obstacle detected. Motor stopped for 3 seconds."
             time.sleep(3)
 
+        counter += 1
         print "Depth sensing sleeping for 2 seconds."
         time.sleep(2)
+
+    gp.cleanup()
 
     #  ======================
     # print "Testing Shallow Water Sensor now ..."
