@@ -1,4 +1,6 @@
 from GPIOLibrary import GPIOProcessor
+import sys
+import time
 
 
 class Sensor:
@@ -26,10 +28,10 @@ class UltrasonicHCSR04:
         Trig (blue wire) : Pin 33 -> OpAmp Node 2 -> Ultra-sonic sensor Trig
         Echo (red wire) : Ultra-sonic sensor Echo -> Pin 32
         """
-        gp = GPIOProcessor()
+        self.gp = GPIOProcessor()
 
-        self.trig = gp.getPin33()
-        self.echo = gp.getPin32()
+        self.trig = self.gp.getPin33()
+        self.echo = self.gp.getPin32()
 
         self.trig.out()
         self.echo.input()
@@ -45,51 +47,53 @@ class UltrasonicHCSR04:
         Activate the sensor to send sound ping (Trig) and receive the echo (Echo) underwater,
         measuring the time interval and calculating and storing the value in depth.
         """
-        import time
+        try:
+            self.trig.low()
 
-        self.trig.low()
+            # time.sleep(0.5)
+            time.sleep(1.0)
+            # time.sleep(1.5)  # 1.5 seconds
 
-        # time.sleep(0.5)
-        time.sleep(1.0)
-        # time.sleep(1.5)  # 1.5 seconds
+            self.trig.high()
 
-        self.trig.high()
+            # time.sleep(0.00001)
+            time.sleep(0.0001)
 
-        # time.sleep(0.00001)
-        time.sleep(0.0001)
+            self.trig.low()
 
-        self.trig.low()
-
-        # defining variables
-        pulse_start = time.time()
-        pulse_end = time.time()
-
-        # Wait for pulse to be sent, then
-        # save start time
-        while self.echo.getValue() == 0:
+            # defining variables
             pulse_start = time.time()
-
-        while self.echo.getValue() == 1:
             pulse_end = time.time()
 
-        # Calculate total pulse duration
-        pulse_duration = pulse_end - pulse_start
+            # Wait for pulse to be sent, then
+            # save start time
+            while self.echo.getValue() == 0:
+                pulse_start = time.time()
 
-        # Use pulse duration to calculate distance
-        # Remember that the pulse has to go there and come back
-        distance = (pulse_duration * self.speed) / 2
+            while self.echo.getValue() == 1:
+                pulse_end = time.time()
 
-        distance = round(distance, 2)
-        # print "distance : ",distance
+            # Calculate total pulse duration
+            pulse_duration = pulse_end - pulse_start
 
-        if distance <= 0.5:
-            # print "Object too close! Stopping propeller for 3 seconds."
-            time.sleep(3.0)  # aka insert signal to stop motor here.
-        # else:
-        #     #print "Unknown value. Sleeping for 3 seconds"
-        #     time.sleep(3.0)
+            # Use pulse duration to calculate distance
+            # Remember that the pulse has to go there and come back
+            distance = (pulse_duration * self.speed) / 2
 
-        # continue
+            distance = round(distance, 2)
+            # print "distance : ",distance
 
-        # print "Distance", distance, "metres"
-        self.set_depth(distance)
+            if distance <= 0.5:
+                # print "Object too close! Stopping propeller for 3 seconds."
+                time.sleep(3.0)  # aka insert signal to stop motor here.
+            # else:
+            #     #print "Unknown value. Sleeping for 3 seconds"
+            #     time.sleep(3.0)
+
+            # continue
+
+            # print "Distance", distance, "metres"
+            self.set_depth(distance)
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
+            self.gp.cleanup()
