@@ -94,6 +94,6 @@ class UltrasonicHCSR04:
 
             # print "Distance", distance, "metres"
             self.set_depth(distance)
-        except:
-            print "Unexpected error:", sys.exc_info()[0]
+        except KeyboardInterrupt():
+            print "Keyboard interrupt received. Cleaning up ..."
             self.gp.cleanup()
