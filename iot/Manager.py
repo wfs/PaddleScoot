@@ -15,6 +15,8 @@ prop = DC()  # propeller
 try:
     isSwsActive = sws.activate()
     isPropStarted = prop.start_motor()
+    if isSwsActive and isPropStarted:
+        print "Sensor activated and Motor started."
 
     counter = 1
     while isSwsActive and isPropStarted:
@@ -29,7 +31,7 @@ try:
             time.sleep(3)
 
         counter += 1
-
+        time.sleep(1)
     gp.cleanup()
 
     #  ======================

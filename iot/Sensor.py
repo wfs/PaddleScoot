@@ -72,8 +72,8 @@ class UltrasonicHCSR04:
             # Remember that the pulse has to go there and come back
             distance = round((pulse_duration * self.speed) / 2, 2)
             self.set_depth(distance)
-            print "Sensor active."
             return True
         except KeyboardInterrupt():
             print "Keyboard interrupt received. Cleaning up ..."
             self.gp.cleanup()
+            return False
