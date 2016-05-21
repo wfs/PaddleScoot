@@ -13,22 +13,23 @@ gp = GPIOProcessor()
 
 try:
     sws = UltrasonicHCSR04()
-    print "Activating Shallow Water Sensor ..."
 
-    # counter = 0
-    # while counter <= 10:
-    #     sws.activate()
-    #     print "Depth :", sws.get_depth()
-    #     counter += 1
+    print "Testing Shallow Water Sensor now ..."
+    counter = 0
+    while counter <= 10:
+        sws.activate()
+        print "Depth :", sws.get_depth()
+        counter += 1
+    gp.cleanup()
 
-    prop = DC()
-    if prop.start_motor():
-        print "Motor running for 5 seconds ..."
-        time.sleep(5)
-        prop.stop_motor()
-        gp.cleanup()
-    else:
-        print "Motor NOT running!"
+    #  prop = DC()  # propulsion
+    # if prop.start_motor():
+    #     print "Testing motor by running for 5 seconds ..."
+    #     time.sleep(5)
+    #     prop.stop_motor()
+    #     gp.cleanup()
+    # else:
+    #     print "Motor NOT running! Test failed."
 except KeyboardInterrupt():
     print "Keyboard interrupt received. Cleaning up ..."
     gp.cleanup()

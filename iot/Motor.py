@@ -20,12 +20,12 @@ class DC:
         Set Input 2 to Low, Input 1 to High for clockwise spin.
         """
 
-        gp = GPIOProcessor()
+        self.gp = GPIOProcessor()
 
         # h-bridge
-        self.green = gp.getPin23()
-        self.white = gp.getPin24()
-        self.yellow = gp.getPin26()
+        self.green = self.gp.getPin23()
+        self.white = self.gp.getPin24()
+        self.yellow = self.gp.getPin26()
 
         self.green.out()
         self.white.out()
@@ -41,14 +41,13 @@ class DC:
         :rtype: Boolean
         :return: True if motor started, False if failed.
         """
-        import sys
         try:
             self.white.low()
             self.white.high()
             return True
-        except:
-            print "Unexpected error:", sys.exc_info()[0]
-            return False
+        except KeyboardInterrupt():
+            print "Keyboard interrupt received. Cleaning up ..."
+            self.gp.cleanup()
 
     def stop_motor(self):
         """
@@ -56,10 +55,9 @@ class DC:
         :rtype: Boolean
         :return: True if motor stopped, False if failed.
         """
-        import sys
         try:
             self.white.low()
             return True
-        except:
-            print "Unexpected error:", sys.exc_info()[0]
-            return False
+        except KeyboardInterrupt():
+            print "Keyboard interrupt received. Cleaning up ..."
+            self.gp.cleanup()
