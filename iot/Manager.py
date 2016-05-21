@@ -14,12 +14,13 @@ prop = DC()  # propeller
 
 try:
     isSwsActive = sws.activate()
-#    isPropStarted = prop.start_motor()
+    isPropStarted = prop.start_motor()
 
     #while isSwsActive and isPropStarted:
         #print sws.get_depth()
-    counter = 0
+    counter = 1
     while counter <= 10:
+        print "======= Iteration :", counter
         sws.activate()
         print "Depth :", sws.get_depth()
 
@@ -29,8 +30,8 @@ try:
             time.sleep(3)
 
         counter += 1
-        print "Depth sensing sleeping for 2 seconds."
-        time.sleep(2)
+        #print "Depth sensing sleeping for 2 seconds."
+        #time.sleep(2)
 
     gp.cleanup()
 
