@@ -4,6 +4,7 @@
 import sys
 import time
 
+
 from GPIOLibrary import GPIOProcessor
 
 from Sensor import UltrasonicHCSR04
@@ -29,6 +30,9 @@ try:
     #     gp.cleanup()
     # else:
     #     print "Motor NOT running!"
+except KeyboardInterrupt():
+    print "Keyboard interrupt received. Cleaning up ..."
+    gp.cleanup()
 except:
     print "Unexpected error:", sys.exc_info()[0]
     gp.cleanup()
