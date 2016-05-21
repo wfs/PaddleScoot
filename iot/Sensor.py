@@ -1,5 +1,4 @@
 from GPIOLibrary import GPIOProcessor
-import sys
 import time
 
 
@@ -49,16 +48,9 @@ class UltrasonicHCSR04:
         """
         try:
             self.trig.low()
-
-            # time.sleep(0.5)
-            time.sleep(1.0)
-            # time.sleep(1.5)  # 1.5 seconds
-
+            time.sleep(0.5)  # seconds
             self.trig.high()
-
-            # time.sleep(0.00001)
             time.sleep(0.0001)
-
             self.trig.low()
 
             # defining variables
@@ -78,21 +70,7 @@ class UltrasonicHCSR04:
 
             # Use pulse duration to calculate distance
             # Remember that the pulse has to go there and come back
-            distance = (pulse_duration * self.speed) / 2
-
-            distance = round(distance, 2)
-            # print "distance : ",distance
-
-            if distance <= 0.5:
-                # print "Object too close! Stopping propeller for 3 seconds."
-                time.sleep(3.0)  # aka insert signal to stop motor here.
-            # else:
-            #     #print "Unknown value. Sleeping for 3 seconds"
-            #     time.sleep(3.0)
-
-            # continue
-
-            # print "Distance", distance, "metres"
+            distance = round((pulse_duration * self.speed) / 2, 2)
             self.set_depth(distance)
         except KeyboardInterrupt():
             print "Keyboard interrupt received. Cleaning up ..."
