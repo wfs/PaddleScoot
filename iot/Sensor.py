@@ -43,61 +43,53 @@ class UltrasonicHCSR04:
     def activate(self):
         """
         Activate the sensor to send sound ping (Trig) and receive the echo (Echo) underwater,
-        measuring the time interval and calculating and storing the value in Sensor.depth.
+        measuring the time interval and calculating and storing the value in depth.
         """
         import time
 
-        print "Begin"
+        self.trig.low()
 
-        counter = 0
-        while True:
-            # print "Entered while True loop ..."
-            self.trig.low()
+        # time.sleep(0.5)
+        time.sleep(1.0)
+        # time.sleep(1.5)  # 1.5 seconds
 
-            # time.sleep(0.5)
-            time.sleep(1.0)
-            # time.sleep(1.5)  # 1.5 seconds
+        self.trig.high()
 
-            self.trig.high()
+        # time.sleep(0.00001)
+        time.sleep(0.0001)
 
-            # time.sleep(0.00001)
-            time.sleep(0.0001)
+        self.trig.low()
 
-            self.trig.low()
+        # defining variables
+        pulse_start = time.time()
+        pulse_end = time.time()
 
-            # defining variables
+        # Wait for pulse to be sent, then
+        # save start time
+        while self.echo.getValue() == 0:
             pulse_start = time.time()
+
+        while self.echo.getValue() == 1:
             pulse_end = time.time()
 
-            # Wait for pulse to be sent, then
-            # save start time
-            while self.echo.getValue() == 0:
-                pulse_start = time.time()
+        # Calculate total pulse duration
+        pulse_duration = pulse_end - pulse_start
 
-            while self.echo.getValue() == 1:
-                pulse_end = time.time()
+        # Use pulse duration to calculate distance
+        # Remember that the pulse has to go there and come back
+        distance = (pulse_duration * self.speed) / 2
 
-            # Calculate total pulse duration
-            pulse_duration = pulse_end - pulse_start
+        distance = round(distance, 2)
+        # print "distance : ",distance
 
-            # Use pulse duration to calculate distance
-            # Remember that the pulse has to go there and come back
-            distance = (pulse_duration * self.speed) / 2
+        if distance <= 0.5:
+            # print "Object too close! Stopping propeller for 3 seconds."
+            time.sleep(3.0)  # aka insert signal to stop motor here.
+        # else:
+        #     #print "Unknown value. Sleeping for 3 seconds"
+        #     time.sleep(3.0)
 
-            distance = round(distance, 2)
-            # print "distance : ",distance
+        # continue
 
-            if distance <= 0.5:
-                # print "Object too close! Stopping propeller for 3 seconds."
-                time.sleep(3.0)  # aka insert signal to stop motor here.
-            # else:
-            #     #print "Unknown value. Sleeping for 3 seconds"
-            #     time.sleep(3.0)
-
-            # continue
-
-            # print "Distance", distance, "metres"
-            self.set_depth(distance)
-            counter += 1
-            # print counter
-            # print "====="
+        # print "Distance", distance, "metres"
+        self.set_depth(distance)
