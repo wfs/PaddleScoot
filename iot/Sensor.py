@@ -34,6 +34,12 @@ class UltrasonicHCSR04:
         self.trig.out()
         self.echo.input()
 
+    def get_depth(self):
+        return self.depth
+
+    def set_depth(self, new_depth):
+        self.depth = new_depth
+
     def activate(self):
         """
         Activate the sensor to send sound ping (Trig) and receive the echo (Echo) underwater,
@@ -91,7 +97,7 @@ class UltrasonicHCSR04:
             # continue
 
             # print "Distance", distance, "metres"
-            self.depth = distance
+            self.set_depth(distance)
             counter += 1
             # print counter
             # print "====="

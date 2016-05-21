@@ -14,14 +14,16 @@ gp = GPIOProcessor()
 try:
     sws = UltrasonicHCSR04()
     sws.activate()
+    print "Depth :", sws.get_depth()
 
     prop = DC()
-    prop.start_motor()
-    time.sleep(5)
-    prop.stop_motor()
-
-    gp.cleanup()
-
+    if prop.start_motor():
+        print "Motor running for 5 seconds ..."
+        time.sleep(5)
+        prop.stop_motor()
+        gp.cleanup()
+    else:
+        print "Motor NOT running!"
 except:
     print "Unexpected error:", sys.exc_info()[0]
     gp.cleanup()
