@@ -13,13 +13,19 @@ sws = UltrasonicHCSR04()  # Shallow Water Sensor
 prop = DC()  # propeller
 
 try:
-    sws.activate()
-    prop.start_motor()
-    while True:
+    isSwsActive = sws.activate()
+    isPropStarted = prop.start_motor()
+
+    while isSwsActive and isPropStarted:
+        print sws.get_depth()
+
         if sws.get_depth() < 0.5:
             prop.stop_motor()
+            print "Obstacle detected. Motor stopped for 3 seconds."
             time.sleep(3)
-        time.sleep(1)
+
+        print "Depth sensing sleeping for 2 seconds."
+        time.sleep(2)
 
     #  ======================
     # print "Testing Shallow Water Sensor now ..."
