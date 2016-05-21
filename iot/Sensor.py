@@ -20,8 +20,8 @@ class UltrasonicHCSR04:
     """
 
     def __init__(self):
-        # speed = 343  # metres per second (m/s) through Air
-        self.speed = 1464  # metres per second (m/s) through Water
+        self.speed = 343  # metres per second (m/s) through Air
+        # self.speed = 1464  # metres per second (m/s) through Water
         self.depth = 0
 
         """
