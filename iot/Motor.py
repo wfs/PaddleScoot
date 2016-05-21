@@ -44,11 +44,11 @@ class DC:
         try:
             self.white.low()
             self.white.high()
-            print "Motor started."
             return True
         except KeyboardInterrupt():
             print "Keyboard interrupt received. Cleaning up ..."
             self.gp.cleanup()
+            return False
 
     def stop_motor(self):
         """
