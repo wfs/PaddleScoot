@@ -13,8 +13,11 @@ sws = UltrasonicHCSR04()  # Shallow Water Sensor
 prop = DC()  # propeller
 
 try:
+    print "Paddle Scoot starting up ..."
     isSwsActive = sws.activate()
+    print "sws active? :", isSwsActive
     isPropStopped = prop.stop_motor()
+    print "prop stopped? : ", isPropStopped
 
     if isSwsActive and isPropStopped:
         print "Sensor activated successfully and motor stopped."
