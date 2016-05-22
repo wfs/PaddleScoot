@@ -14,34 +14,40 @@ prop = DC()  # propeller
 
 try:
     print "Paddle Scoot starting up ..."
-    isSwsActive = sws.activate()
-    print "sws active? :", isSwsActive
+    #  ========================
+    #  Just prop spinning, no Shallow Water Sensor
+    #  ========================
     prop.stop_motor()
+    prop.start_motor()
     print "prop spinning? : ", prop.isPropSpinning
-
-    if isSwsActive and not prop.isPropSpinning:
-        print "Sensor activated successfully and motor stopped."
-
-    counter = 1
-    while sws.activate():
-        # while counter <= 10:
-        print "======= Iteration :", counter
-        latest_depth = sws.get_depth()
-        print "Depth :", latest_depth
-
-        if (latest_depth < 0.3) and prop.isPropSpinning:
-            prop.stop_motor()
-            print "Obstacle detected. Motor stopped for 2 seconds."
-            time.sleep(2)
-        else:
-            print "Starting motor ..."
-            if not prop.isPropSpinning:
-                prop.start_motor()
-
-        counter += 1
-        # time.sleep(1)
-    gp.cleanup()
-
+    #  ========================
+    #  Uncomment when ultrasonic sensor is fixed.
+    #  ========================
+    # isSwsActive = sws.activate()
+    # print "sws active? :", isSwsActive
+    #
+    # if isSwsActive and not prop.isPropSpinning:
+    #     print "Sensor activated successfully and motor stopped."
+    #
+    # counter = 1
+    # while sws.activate():
+    #     # while counter <= 10:
+    #     print "======= Iteration :", counter
+    #     latest_depth = sws.get_depth()
+    #     print "Depth :", latest_depth
+    #
+    #     if (latest_depth < 0.3) and prop.isPropSpinning:
+    #         prop.stop_motor()
+    #         print "Obstacle detected. Motor stopped for 2 seconds."
+    #         time.sleep(2)
+    #     else:
+    #         print "Starting motor ..."
+    #         if not prop.isPropSpinning:
+    #             prop.start_motor()
+    #
+    #     counter += 1
+    #  ========================
+    #  Individual component tests ...
     #  ======================
     # print "Testing Shallow Water Sensor now ..."
     # counter = 0
