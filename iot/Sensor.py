@@ -48,6 +48,7 @@ class UltrasonicHCSR04:
         measuring the time interval and calculating and storing the value in depth.
         """
         try:
+            print "Activating Shallow Water Sensor ..."
             self.trig.low()
             time.sleep(0.5)  # seconds
             self.trig.high()
@@ -60,18 +61,22 @@ class UltrasonicHCSR04:
 
             # Wait for pulse to be sent, then
             # save start time
+            print "Sending pulse ..."
             while self.echo.getValue() == 0:
                 pulse_start = time.time()
 
+            print "Received echo."
             while self.echo.getValue() == 1:
                 pulse_end = time.time()
 
             # Calculate total pulse duration
             pulse_duration = pulse_end - pulse_start
+            print "pulse_duration :", pulse_duration
 
             # Use pulse duration to calculate distance
             # Remember that the pulse has to go there and come back
             distance = round((pulse_duration * self.speed) / 2, 2)
+            print "distance :", distance
             self.set_depth(distance)
             return True
         except KeyboardInterrupt():
