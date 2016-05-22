@@ -50,9 +50,9 @@ class UltrasonicHCSR04:
         try:
             print "Activating Shallow Water Sensor ..."
             self.trig.low()
-            time.sleep(0.5)  # seconds
+            time.sleep(0.1)  # seconds
             self.trig.high()
-            time.sleep(0.00001)
+            time.sleep(0.001)
             self.trig.low()
 
             # defining variables

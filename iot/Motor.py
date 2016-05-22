@@ -35,6 +35,8 @@ class DC:
         self.green.low()  # Input 2
         self.yellow.high()  # Input 1
 
+        self.isPropSpinning = False
+
     def start_motor(self):
         """
         Set Enable A to High to start motor.
@@ -44,6 +46,7 @@ class DC:
         try:
             self.white.low()
             self.white.high()
+            self.isPropSpinning = True
             return True
         except KeyboardInterrupt():
             print "Keyboard interrupt received. Cleaning up ..."
@@ -58,6 +61,7 @@ class DC:
         """
         try:
             self.white.low()
+            self.isPropSpinning = False
             return True
         except KeyboardInterrupt():
             print "Keyboard interrupt received. Cleaning up ..."

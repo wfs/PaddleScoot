@@ -16,28 +16,30 @@ try:
     print "Paddle Scoot starting up ..."
     isSwsActive = sws.activate()
     print "sws active? :", isSwsActive
-    isPropStopped = prop.stop_motor()
-    print "prop stopped? : ", isPropStopped
+    prop.stop_motor()
+    print "prop spinning? : ", prop.isPropSpinning
 
-    if isSwsActive and isPropStopped:
+    if isSwsActive and not prop.isPropSpinning:
         print "Sensor activated successfully and motor stopped."
 
     counter = 1
     while sws.activate():
-    #while counter <= 10:
+        # while counter <= 10:
         print "======= Iteration :", counter
         latest_depth = sws.get_depth()
         print "Depth :", latest_depth
 
-        if latest_depth < 0.3:
+        if (latest_depth < 0.3) and prop.isPropSpinning:
             prop.stop_motor()
             print "Obstacle detected. Motor stopped for 2 seconds."
             time.sleep(2)
         else:
-            prop.start_motor()
+            print "Starting motor ..."
+            if not prop.isPropSpinning:
+                prop.start_motor()
 
         counter += 1
-        #time.sleep(1)
+        # time.sleep(1)
     gp.cleanup()
 
     #  ======================
