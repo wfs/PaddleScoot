@@ -52,7 +52,7 @@ class UltrasonicHCSR04:
             self.trig.low()
             time.sleep(0.5)  # seconds
             self.trig.high()
-            time.sleep(0.0001)
+            time.sleep(0.00001)
             self.trig.low()
 
             # defining variables
@@ -78,7 +78,7 @@ class UltrasonicHCSR04:
             # Use pulse duration to calculate distance
             # Remember that the pulse has to go there and come back
             distance = round((pulse_duration * self.speed) / 2, 2)
-            print "distance :", distance
+            # print "distance :", distance
             self.set_depth(distance)
             return True
         except KeyboardInterrupt():

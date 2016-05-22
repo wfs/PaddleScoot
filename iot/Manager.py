@@ -31,8 +31,8 @@ try:
 
         if latest_depth < 0.3:
             prop.stop_motor()
-            print "Obstacle detected. Motor stopped for 3 seconds."
-            time.sleep(3)
+            print "Obstacle detected. Motor stopped for 2 seconds."
+            time.sleep(2)
         else:
             prop.start_motor()
 
