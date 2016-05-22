@@ -70,10 +70,10 @@ class UltrasonicHCSR04:
                 pulse_end = time.time()
 
             # Calculate total pulse duration
-            print "pulse_end time :", pulse_end
-            print "pulse_start time : ", pulse_start
+            # print "pulse_end time :", pulse_end
+            # print "pulse_start time : ", pulse_start
             pulse_duration = pulse_end - pulse_start
-            print "pulse_duration time :", pulse_duration
+            # print "pulse_duration time :", pulse_duration
 
             # Use pulse duration to calculate distance
             # Remember that the pulse has to go there and come back

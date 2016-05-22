@@ -29,7 +29,7 @@ try:
         latest_depth = sws.get_depth()
         print "Depth :", latest_depth
 
-        if latest_depth < 0.5:
+        if latest_depth < 0.3:
             prop.stop_motor()
             print "Obstacle detected. Motor stopped for 3 seconds."
             time.sleep(3)
