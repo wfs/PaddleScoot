@@ -52,7 +52,7 @@ class UltrasonicHCSR04:
             self.trig.low()
             time.sleep(0.5)  # seconds
             self.trig.high()
-            time.sleep(0.0001)
+            time.sleep(0.00001)
             self.trig.low()
 
             # defining variables

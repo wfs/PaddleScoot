@@ -37,7 +37,7 @@ try:
             prop.start_motor()
 
         counter += 1
-        time.sleep(1)
+        #time.sleep(1)
     gp.cleanup()
 
     #  ======================
