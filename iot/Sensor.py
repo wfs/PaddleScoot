@@ -31,7 +31,7 @@ class UltrasonicHCSR04:
         self.gp = GPIOProcessor()
 
         self.trig = self.gp.getPin33()
-        self.echo = self.gp.getPin30()
+        self.echo = self.gp.getPin34()
 
         self.trig.out()
         self.echo.input()
@@ -51,9 +51,9 @@ class UltrasonicHCSR04:
             print "Activating Shallow Water Sensor ..."
             self.trig.low()
             #time.sleep(0.000002)  # at least 2 micro-seconds
-            time.sleep(0.5)  # at least 2 micro-seconds
+            time.sleep(0.5)  # At least 2 micro-seconds. 0.5 tested and working.
             self.trig.high()
-            time.sleep(0.00001)  # at least 5 micro-seconds, i'm using 10 micro-seconds
+            time.sleep(0.0001)  # At least 5 micro-seconds. 100 tested and working.
             self.trig.low()
             print "Pulse sent."
 
