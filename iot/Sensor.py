@@ -50,7 +50,7 @@ class UltrasonicHCSR04:
         try:
             print "Activating Shallow Water Sensor ..."
             self.trig.low()
-            #time.sleep(0.000002)  # at least 2 micro-seconds
+            # time.sleep(0.000002)  # at least 2 micro-seconds
             time.sleep(0.5)  # At least 2 micro-seconds. 0.5 tested and working.
             self.trig.high()
             time.sleep(0.0001)  # At least 5 micro-seconds. 100 tested and working.
@@ -64,8 +64,8 @@ class UltrasonicHCSR04:
             # Wait for pulse to be sent, then
             # save start time.
             # Adding counter to break while loop due to weird glitch.
-            counter = 100
-            while self.echo.getValue() == 0 or counter > 0:
+            counter = 50000
+            while self.echo.getValue() == 0 and counter > 0:
                 pulse_start = time.time()
                 counter -= 1
                 print "counter :", counter
