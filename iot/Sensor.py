@@ -63,8 +63,8 @@ class UltrasonicHCSR04:
 
             # Wait for pulse to be sent, then
             # save start time.
-            # Adding counter to break while loop due to weird glitch.
-            counter = 50000
+            # Note : Adding counter to break while loop due to weird glitch.
+            counter = 10000
             while self.echo.getValue() == 0 and counter > 0:
                 pulse_start = time.time()
                 counter -= 1
@@ -76,7 +76,7 @@ class UltrasonicHCSR04:
                     pulse_end = time.time()
 
             if counter == 0:
-                print "No echo received. Returning to Manager to start again."
+                print "No echo received for long period. Returning to Manager to start again."
                 self.set_depth(0)
                 return False
 
