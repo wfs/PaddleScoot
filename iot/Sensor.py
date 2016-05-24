@@ -68,6 +68,7 @@ class UltrasonicHCSR04:
             while self.echo.getValue() == 0 or counter > 0:
                 pulse_start = time.time()
                 counter -= 1
+                print "counter :", counter
 
             if self.echo.getValue() == 1:
                 print "Received echo."
