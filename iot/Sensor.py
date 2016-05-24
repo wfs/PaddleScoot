@@ -42,7 +42,7 @@ class UltrasonicHCSR04:
     def set_depth(self, new_depth):
         self.depth = new_depth
 
-    def activate(self):
+    def check_depth(self):
         """
         Activate the sensor to send sound ping (Trig) and receive the echo (Echo) underwater,
         measuring the time interval and calculating and storing the value in depth.
@@ -62,13 +62,22 @@ class UltrasonicHCSR04:
             pulse_end = time.time()
 
             # Wait for pulse to be sent, then
-            # save start time
-            while self.echo.getValue() == 0:
+            # save start time.
+            # Adding counter to break while loop due to weird glitch.
+            counter = 100
+            while self.echo.getValue() == 0 or counter > 0:
                 pulse_start = time.time()
+                counter -= 1
 
-            print "Received echo."
-            while self.echo.getValue() == 1:
-                pulse_end = time.time()
+            if self.echo.getValue() == 1:
+                print "Received echo."
+                while self.echo.getValue() == 1:
+                    pulse_end = time.time()
+
+            if counter == 0:
+                print "No echo received. Returning to Manager to start again."
+                self.set_depth(0)
+                return False
 
             # Calculate total pulse duration
             # print "pulse_end time :", pulse_end
