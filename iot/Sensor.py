@@ -68,7 +68,7 @@ class UltrasonicHCSR04:
             while self.echo.getValue() == 0 and counter > 0:
                 pulse_start = time.time()
                 counter -= 1
-                print "counter :", counter
+                #  print "counter :", counter
 
             if self.echo.getValue() == 1:
                 print "Received echo."
@@ -76,7 +76,7 @@ class UltrasonicHCSR04:
                     pulse_end = time.time()
 
             if counter == 0:
-                print "No echo received for long period. Returning to Manager to start again."
+                print "No echo received for long period. Return to Manager and start again."
                 self.set_depth(0)
                 return False
 
